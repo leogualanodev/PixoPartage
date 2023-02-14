@@ -16,14 +16,17 @@ echo "</pre>";
     <div>
       <label for="pseudo">Pseudo :</label>
       <input type="text" name="pseudo" id="pseudo">
+      <p class="errors"><?= $errors['pseudo']; ?></p>
     </div>
     <div>
       <label for="mail">Email :</label>
       <input type="mail" name="mail" id="mail">
+      <p class="errors"><?= $errors['mail']; ?></p>
     </div>
     <div>
       <label for="password">Mot de passe :</label>
       <input type="text" name="password" id="password">
+      <p class="errors"><?= $errors['password']; ?></p>
     </div>
     <div>
       <label for="confirmPass">Confirmez votre mot de passe :</label>

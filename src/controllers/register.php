@@ -1,8 +1,11 @@
 <?php
 
-const EMPTY_INPUT = "Ce champ est incorrect";
+const ERROR_INPUT = "Ce champ est incorrect";
 const ERROR_CHECK_PASSWORD = "Vos mots de passes ne correspondent pas";
 const ERROR_INVALID_MAIL = "Mail non valide";
+
+$patternLetterNumbers = '/^[a-zA-Z0-9]+$/'; // Pattern : qui accepte seulement lettres et chiffres
+$patternPassword = '/^(?=.*[0-9])(?=.*[A-Z]).{8,20}$/';  // Pattern : 1 Majuscule , 8 caractères minimum, et un chiffre minimum
 
 $errors = [
   'pseudo' => '',
@@ -26,7 +29,30 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $confirmPass = $input['confirmPass'] ?? '';
 
   if(empty($pseudo)){
-
+    $errors['pseudo'] = ERROR_INPUT;
+  } else if(!preg_match($patternLetterNumbers, $pseudo)){
+    $errors['pseudo'] = "Caractères invalide";
   }
 
+  if(empty($mail)){
+    $errors['mail'] = ERROR_INPUT;
+  } else if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
+    $errors['mail'] = ERROR_INVALID_MAIL;
+  }
+  
+  if(empty($password)){
+    $errors['password'] = ERROR_INPUT;
+  } else if(!preg_match($patternPassword, $password)){
+    $errors['password'] = "Une Majuscule, un chiffre, 8 caractères";
+  }
+
+  if(empty($confirmPass)){
+    $errors['confirmPass'] = ERROR_INPUT;
+  } else if(!preg_match($patternPassword, $confirmPass)){
+    $errors['confirmPass'] = "Une Majuscule, un chiffre, 8 caractères";
+  } else if ($confirmPass !== $password){
+    $errors['confirmPass'] = ERROR_CHECK_PASSWORD;
+  }
+
+  
 }
