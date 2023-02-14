@@ -65,8 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     $user = new User();
-    $user->userRegistered($addUser);
 
-    header('location: ./');
+    if ($user->checkIfUserExist($pseudo, $mail) !== true) {
+      $user->userRegistered($addUser);
+      header('location: ./');
+    }
   }
 }

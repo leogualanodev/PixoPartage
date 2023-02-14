@@ -1,7 +1,8 @@
 <?php
 require_once('./src/models/class/database.class.php');
 
-class User extends Database {
+class User extends Database
+{
 
   public int $id;
   private string $pseudo;
@@ -14,16 +15,31 @@ class User extends Database {
     parent::__construct();
   }
 
-  public function checkIfUserExist(){
-    $checkIfUserExist = $this->pdo->prepare("SELECT * FROM users WHERE pseudo = :pseudo, mail = :mail");
+  public function checkIfUserExist($pseudo, $mail)
+  {
+    $checkIfUserExist = $this->pdo->prepare("SELECT pseudo, mail FROM users ");
     $checkIfUserExist->execute();
-    return $checkIfExist = $checkIfUserExist->fetchAll();
+    $checkIfExist = $checkIfUserExist->fetchAll();
+    $result = false;
+    for ($i=0; $i < count($checkIfExist); $i++) { 
+      if($pseudo == $checkIfExist[$i]['pseudo'] || 
+      $pseudo == $checkIfExist[$i]['mail']){
+        $result = true;
+      }
+    }
+      for ($i=0; $i < count($checkIfExist); $i++) { 
+        if($mail == $checkIfExist[$i]['pseudo'] || 
+        $mail == $checkIfExist[$i]['mail']){
+          $result = true;
+        }
+    }
+    return $result;
   }
 
-  public function userRegistered($user){
+
+  public function userRegistered($user)
+  {
     $userRegistered = $this->pdo->prepare("INSERT INTO users (pseudo, mail, password) VALUES (:pseudo, :mail, :password)");
     return $userRegistered->execute($user);
   }
-
 }
-
