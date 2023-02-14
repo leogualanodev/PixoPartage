@@ -1,7 +1,7 @@
 <?php
 
 
-require_once('./src/models/class/database.class.php');
+require_once('./src/models/autoload.php');
 
 $pdo = new Database();
 var_dump($pdo);
