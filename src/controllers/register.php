@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . './../models/class/user.class.php';
 
 const ERROR_INPUT = "Ce champ est incorrect";
 const ERROR_CHECK_PASSWORD = "Vos mots de passes ne correspondent pas";
@@ -14,7 +15,7 @@ $errors = [
   'confirmPass' => '',
 ];
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $input = filter_input_array(INPUT_POST, [
     'pseudo' => FILTER_SANITIZE_SPECIAL_CHARS,
@@ -28,31 +29,44 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $password = $input['password'] ?? '';
   $confirmPass = $input['confirmPass'] ?? '';
 
-  if(empty($pseudo)){
+  if (empty($pseudo)) {
     $errors['pseudo'] = ERROR_INPUT;
-  } else if(!preg_match($patternLetterNumbers, $pseudo)){
+  } else if (!preg_match($patternLetterNumbers, $pseudo)) {
     $errors['pseudo'] = "Caractères invalide";
   }
 
-  if(empty($mail)){
+  if (empty($mail)) {
     $errors['mail'] = ERROR_INPUT;
-  } else if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
+  } else if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
     $errors['mail'] = ERROR_INVALID_MAIL;
   }
-  
-  if(empty($password)){
+
+  if (empty($password)) {
     $errors['password'] = ERROR_INPUT;
-  } else if(!preg_match($patternPassword, $password)){
+  } else if (!preg_match($patternPassword, $password)) {
     $errors['password'] = "Une Majuscule, un chiffre, 8 caractères";
   }
 
-  if(empty($confirmPass)){
+  if (empty($confirmPass)) {
     $errors['confirmPass'] = ERROR_INPUT;
-  } else if(!preg_match($patternPassword, $confirmPass)){
+  } else if (!preg_match($patternPassword, $confirmPass)) {
     $errors['confirmPass'] = "Une Majuscule, un chiffre, 8 caractères";
-  } else if ($confirmPass !== $password){
+  } else if ($confirmPass !== $password) {
     $errors['confirmPass'] = ERROR_CHECK_PASSWORD;
   }
 
-  
+  if (empty(array_filter($errors, fn ($e) => $e !== ''))) {
+
+    $password = password_hash($password, PASSWORD_BCRYPT);
+    $addUser = [
+      "pseudo" => $pseudo,
+      "mail" => $mail,
+      "password" => $password,
+    ];
+
+    $user = new User();
+    $user->userRegistered($addUser);
+
+    header('location: ./');
+  }
 }

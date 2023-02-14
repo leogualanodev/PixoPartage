@@ -4,9 +4,9 @@ require_once __DIR__ . './../controllers/register.php';
 
 ob_start();
 
-echo "<pre>";
+// echo "<pre>";
 // var_dump($_SERVER);
-echo "</pre>";
+// echo "</pre>";
 
 ?>
 
@@ -31,12 +31,11 @@ echo "</pre>";
     <div>
       <label for="confirmPass">Confirmez votre mot de passe :</label>
       <input type="text" name="confirmPass" id="confirmPass">
+      <p class="errors"><?= $errors['confirmPass']; ?></p>
     </div>
     <input type="submit" name="register" value="S'inscrire">
   </form>
 </body>
-
-
 
 
 

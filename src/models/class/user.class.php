@@ -18,15 +18,12 @@ class User extends Database {
 
   }
 
-  public function userRegistered(){
-    $userRegistered = $this->pdo->prepare("INSERT INTO users VALUES (:pseudo, :mail, :password)");
-    $userRegistered->bindParam('pseudo', $pseudo);
-    $userRegistered->bindParam('mail', $mail);
-    $userRegistered->bindParam('password', $password);
-    $userRegistered->execute();
+  public function userRegistered($user){
+    $userRegistered = $this->pdo->prepare("INSERT INTO users (pseudo, mail, password) VALUES (:pseudo, :mail, :password)");
+    return $userRegistered->execute($user);
   }
 
-  
+
 
 
 }
