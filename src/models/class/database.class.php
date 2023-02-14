@@ -4,7 +4,7 @@ class Database
 {
   private $host = '127.0.0.1';
   private $port = '3306';
-  private $database = 'hospitale2n';
+  private $database = '';
   private $nameDB = 'root';
   private $password = '';
   // private $nameDB;
@@ -22,7 +22,7 @@ class Database
       [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8; USE hospitale2n'
+        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8;'
       ]
     );
   }
