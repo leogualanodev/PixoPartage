@@ -1,12 +1,18 @@
 <?php
 
+require_once __DIR__ . './../controllers/register.php';
+
 ob_start();
+
+echo "<pre>";
+// var_dump($_SERVER);
+echo "</pre>";
 
 ?>
 
 
 <body>
-  <form action="" method="POST">
+  <form action="<?= htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="POST">
     <div>
       <label for="pseudo">Pseudo :</label>
       <input type="text" name="pseudo" id="pseudo">
@@ -26,11 +32,6 @@ ob_start();
     <input type="submit" name="register" value="S'inscrire">
   </form>
 </body>
-
-
-
-
-
 
 
 

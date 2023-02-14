@@ -15,8 +15,18 @@ class User extends Database {
   }
 
   public function getIdOfUser(){
-    
+
   }
+
+  public function userRegistered(){
+    $userRegistered = $this->pdo->prepare("INSERT INTO users VALUES (:pseudo, :mail, :password)");
+    $userRegistered->bindParam('pseudo', $pseudo);
+    $userRegistered->bindParam('mail', $mail);
+    $userRegistered->bindParam('password', $password);
+    $userRegistered->execute();
+  }
+
+  
 
 
 }
