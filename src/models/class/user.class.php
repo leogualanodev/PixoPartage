@@ -36,10 +36,25 @@ class User extends Database
     return $result;
   }
 
-
   public function userRegistered($user)
   {
     $userRegistered = $this->pdo->prepare("INSERT INTO users (pseudo, mail, password) VALUES (:pseudo, :mail, :password)");
     return $userRegistered->execute($user);
+  }
+
+  function checkIfPasswordOK($password, $pseudo)
+  {
+    $checkIfPasswordOkExist = $this->pdo->prepare("SELECT password FROM users WHERE pseudo=:pseudo OR email=:email");
+    $checkIfPasswordOkExist->BindParam(":pseudo", "$pseudo");
+    $checkIfPasswordOkExist->BindParam(":email", "$pseudo");
+    $checkIfPasswordOkExist->execute();
+
+    $return = $checkIfPasswordOkExist->fetchAll();
+    $result = false;
+
+    if ($password == $return[0]["password"]) {
+      $result = true;
+    }
+    return $result;
   }
 }
