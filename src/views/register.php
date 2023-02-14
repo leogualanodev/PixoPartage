@@ -1,15 +1,10 @@
 <?php
 
-require_once __DIR__ . './../controllers/register.php';
+require_once __DIR__ . './../controllers/registerC.php';
 
 ob_start();
 
-// echo "<pre>";
-// var_dump($_SERVER);
-// echo "</pre>";
-
 ?>
-
 
 <body>
   <form action="<?= htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="POST">
@@ -36,9 +31,6 @@ ob_start();
     <input type="submit" name="register" value="S'inscrire">
   </form>
 </body>
-
-
-
 
 
 <?php
