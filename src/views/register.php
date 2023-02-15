@@ -35,4 +35,6 @@ ob_start();
 
 <?php
 $content = ob_get_clean();
-// echo $content;
+require_once('./src/templates/head.php');
+
+

@@ -1,7 +1,7 @@
 <?php
 
 
-require_once __DIR__ . './src/includes/header.php';
+// require_once __DIR__ . './src/includes/header.php';
 // require_once __DIR__ . './src/views/register.php';
 require_once __DIR__ . './src/views/login.php';
 
@@ -11,9 +11,9 @@ if (!empty($_GET) && isset($_GET)) {
     require_once __DIR__ . './src/views/register.php';
     echo $content;
 
-    if(!empty($_POST)){
-      var_dump($_POST);
-    }
+    // if(!empty($_POST)){
+      // var_dump($_POST);
+    // }
   }
 
 

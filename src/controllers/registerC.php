@@ -65,17 +65,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     $user = new User();
-    // if ($user->checkIfUserExist($pseudo, $mail) !== true) {
+    
+    // $user->pseudo
+
+    // if($user->checkIfUserExist($pseudo, $mail) !== true){
     //   $user->userRegistered($addUser);
     //   header('location: ./');
     // }
-    
-    // var_dump($user->checkIfUserExist());
 
-    if($user->checkIfUserExist() === true){
-      var_dump($user->checkIfUserExist());
-    }
+    // if($user->checkIfUserExist($pseudo, $mail) == true){
+    //   var_dump($user->checkIfUserExist($pseudo, $mail));
+    //   $user->userRegistered($addUser);
+    //   header('location: ./');
+    // }
 
 
   }
 }
+
+
